@@ -21,3 +21,9 @@ jobs:
           mkdir deploy
           cp vuln deploy/
           echo "Deployment complete"
+
+      - name: Upload deployed binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: vuln-binary
+          path: deploy/vuln

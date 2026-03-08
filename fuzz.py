@@ -15,7 +15,7 @@ gdb_script = f"""
   c
 """
 # context.log_level = 'DEBUG'
-# context.log_level = 'ERROR'
+context.log_level = 'ERROR'
 
 if args.GDB:
   context.terminal = [

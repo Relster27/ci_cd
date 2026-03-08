@@ -17,7 +17,6 @@ gdb_script = f"""
 # context.log_level = 'DEBUG'
 
 if args.GDB:
-  # context.terminal = ['tmux', 'splitw', '-h']  
   context.terminal = [
     'wt.exe', '-w', '0', 'new-tab', '--', 'bash', '-lc'
   ]

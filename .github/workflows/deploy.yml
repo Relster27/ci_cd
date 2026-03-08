@@ -1,0 +1,23 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Compile program
+        run: gcc vuln.c -o vuln -no-pie
+
+      - name: Deploy binary
+        run: |
+          mkdir deploy
+          cp vuln deploy/
+          echo "Deployment complete"

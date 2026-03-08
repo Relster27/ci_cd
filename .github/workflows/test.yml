@@ -1,0 +1,44 @@
+name: "CI/CD Test"
+
+# Trigger condition: when a pull request is opened/updated against master
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    # Virtual machine type: ubuntu-latest (Linux environment)
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Check out the repository code
+      # This downloads your repository into the workflow workspace
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      # Step 2: Compile the C program
+      # gcc: GNU C compiler (pre-installed on ubuntu-latest)
+      # -o vuln: output filename
+      # vuln.c: input source file
+      - name: Compile C program
+        run: gcc vuln.c -o vuln -no-pie
+      
+      # Step 3: Verify the binary was created successfully
+      # This checks that compilation didn't fail
+      - name: Verify compilation
+        run: |
+          if [ -f vuln ]; then
+            echo "✓ Compilation successful"
+            file vuln
+          else
+            echo "✗ Compilation failed"
+            exit 1
+          fi
+      
+      # Step 4: Optional - Run security check (detect vulnerable functions)
+      # This warns about dangerous functions like gets()
+      - name: Check for vulnerable functions
+        run: |
+          echo "Checking for common vulnerabilities..."
+          grep -n "gets\|strcpy\|sprintf" vuln.c || echo "No obvious vulnerable functions detected"

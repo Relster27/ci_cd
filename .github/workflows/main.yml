@@ -2,7 +2,8 @@ name: "CI/CD Test"
 
 # Trigger condition: when a pull request is opened/updated against master
 on:
-  push:
+  # push:
+  pull_request:
     branches:
       - master
 

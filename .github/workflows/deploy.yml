@@ -16,6 +16,9 @@ jobs:
       - name: Compile program
         run: gcc vuln.c -o vuln -no-pie
 
+      - name: Build Docker image
+        run: docker build -t vuln-image .
+
       - name: Deploy binary
         run: |
           mkdir deploy
